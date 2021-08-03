@@ -12,19 +12,19 @@ class Sql extends PDO {     // A classe Sql extende a classe PDO, logo tudo o qu
 
     }
 
-    private function setParams($statment, $parameters = array()) {   // metodo que recebe o statment e os dados(parameters) que é um array por padrao.
+    private function setParams($statement, $parameters = array()) {   // metodo que recebe o statment e os dados(parameters) que é um array por padrao.
 
         foreach ($parameters as $key => $value) { 
 
-            $this->setParam($key, $value);  //  chamo o metodo setParam abaixo.
+            $this->setParam($statement, $key, $value);  //  chamo o metodo setParam abaixo.
 
         }
 
     }
 
-    private function setParam($statment, $key, $value){   // metodo que recebe o statment, a chave e o valor. Nao preciso de passar todos os dados pois só estou a fazer um bind de parametro.
+    private function setParam($statement, $key, $value){   // metodo que recebe o statment, a chave e o valor. Nao preciso de passar todos os dados pois só estou a fazer um bind de parametro.
 
-        $statment->bindParam($key, $value);
+        $statement->bindParam($key, $value);
 
     }
 

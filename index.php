@@ -4,6 +4,7 @@
 
 require_once("config.php");
 
+/*  ---- Primeiro exemplo DAO - CLASSE Sql - Lista todos os registos ----
 $sql = new Sql();  // como ja sabe encontrar as pastas e ficheiros entao crio a variavel $sql que instancia a classe Sql (Sql.php).
 
 
@@ -22,5 +23,30 @@ foreach ($usuarios as $row) { // Para percorrer os dados. Como Key Value do fore
     echo "====================================================<br>";
 
 }
+*/
+
+
+
+
+/*  ---- Segundo exemplo DAO - CLASSE Usuario - Lista um registo especifico ----
+*/
+
+$root = new Usuario();
+$root->loadById(4);
+
+echo $root;
+
+foreach ($root as $row) { // Para percorrer os dados. Como Key Value do foreach temos $row que é do primeiro array)
+
+    foreach ($row as $key => $value) {  // para obter o Key Value de cada um temos outro foreach ao $row. Key será o nome do campo.
+
+        echo "<strong>".$key.":</strong>".$value."<br/>";
+
+    }
+
+    echo "====================================================<br>";
+
+}
+
 
 ?>
