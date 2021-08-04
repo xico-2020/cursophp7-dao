@@ -169,6 +169,20 @@ public function update($login, $password){
 
 }
 
+
+public function delete(){
+	$sql = new Sql();
+	$sql->execQuery("DELETE FROM tb_usuarios WHERE idusuario = :ID", array(
+		':ID'=>$this->getIdusuario()
+	));
+
+	$this->setIdusuario(0);  // Se apagamos da BD vamos por a zero no objeto,
+	$this->setDeslogin("");
+	$this->setDessenha("");
+	$this->setDtcadastro(new DateTime());
+
+}
+
 public function __construct($login = "", $password = ""){  // como é um metodo construtor, sempre que chamo a funcao usuario tenho que passar o login e a senha. Por forma a nao ser obrigatorio coloco = "" , e se nao passar os parametros é assumido vazio e nao da erro. 
 	$this->setDeslogin($login);
 	$this->setDessenha($password);

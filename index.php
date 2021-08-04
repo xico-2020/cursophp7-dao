@@ -23,44 +23,44 @@ foreach ($usuarios as $row) { // Para percorrer os dados. Como Key Value do fore
     echo "====================================================<br>";
 
 }
-*/
 
 
 
 
-/*  ---- Segundo exemplo DAO - CLASSE Usuario - Lista um registo especifico ----
+
+//  ---- Segundo exemplo DAO - CLASSE Usuario - Lista um registo especifico ----
 
 
 $root = new Usuario();
 $root->loadById(4);
 
 echo $root;
-*/
-/*  ---- Terceiro exemplo DAO - CLASSE Usuario - Lista todos os registos ----
+
+// ---- Terceiro exemplo DAO - CLASSE Usuario - Lista todos os registos ----
 
 $lista = Usuario::getList();  // como getList é metodo estatico chamo diretamente sem ser necessario instanciar.
 
 echo json_encode($lista);
-*/
 
-/*  ---- Quarto exemplo DAO - CLASSE Usuario - Lista de usuarios com pesquisa por login ----
+
+//  ---- Quarto exemplo DAO - CLASSE Usuario - Lista de usuarios com pesquisa por login ----
 
 
 $search = Usuario::search("Au");
 echo json_encode($search);
-*/
 
-/*  ---- Quinto exemplo DAO - CLASSE Usuario - Carrega um usuario usando o login e a senha ----
+
+//  ---- Quinto exemplo DAO - CLASSE Usuario - Carrega um usuario usando o login e a senha ----
 
 
 $usuario = new Usuario();
 $usuario->login("mario", "panhanhas");
 
 echo $usuario;
-*/
 
 
-/*  ---- Sexto exemplo DAO - CLASSE Usuario - Inserir um novo usuario antes do metodo construct ----
+
+//  ---- Sexto exemplo DAO - CLASSE Usuario - Inserir um novo usuario antes do metodo construct ----
 
 
 $aluno = new Usuario();
@@ -70,9 +70,9 @@ $aluno->setDessenha("@lun0");  // coloca apenas valores no objeto e ainda nao en
 $aluno->insert();  // envia para a BD
 
 echo $aluno;
-*/
 
-/*  ---- Sexto exemplo DAO - CLASSE Usuario - Inserir um novo usuario depois do metodo construct ----
+
+//  ---- Sexto exemplo DAO - CLASSE Usuario - Inserir um novo usuario depois do metodo construct ----
 
 
 $aluno = new Usuario("aluno", "@lun0");
@@ -80,17 +80,29 @@ $aluno = new Usuario("aluno", "@lun0");
 $aluno->insert();  // envia para a BD
 
 echo $aluno;
-*/
 
 
-/*  ---- Setimo exemplo DAO - CLASSE Usuario - UPDATE usuario  ----
-*/
+
+//  ---- Setimo exemplo DAO - CLASSE Usuario - UPDATE usuario  ----
 
 $usuario = new Usuario();
 
 $usuario->loadById(9);
 
 $usuario->update("professor", "!@#$%*&");
+
+echo $usuario;
+
+
+
+//  ---- Oitavo exemplo DAO - CLASSE Usuario - DELETE usuario  ----
+*/
+
+$usuario = new Usuario();
+
+$usuario->loadById(8);
+
+$usuario->delete();
 
 echo $usuario;
 
