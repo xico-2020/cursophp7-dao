@@ -51,10 +51,46 @@ echo json_encode($search);
 */
 
 /*  ---- Quinto exemplo DAO - CLASSE Usuario - Carrega um usuario usando o login e a senha ----
-*/
+
 
 $usuario = new Usuario();
 $usuario->login("mario", "panhanhas");
+
+echo $usuario;
+*/
+
+
+/*  ---- Sexto exemplo DAO - CLASSE Usuario - Inserir um novo usuario antes do metodo construct ----
+
+
+$aluno = new Usuario();
+$aluno->setDeslogin("aluno");
+$aluno->setDessenha("@lun0");  // coloca apenas valores no objeto e ainda nao enviou para a BD.
+
+$aluno->insert();  // envia para a BD
+
+echo $aluno;
+*/
+
+/*  ---- Sexto exemplo DAO - CLASSE Usuario - Inserir um novo usuario depois do metodo construct ----
+
+
+$aluno = new Usuario("aluno", "@lun0");
+
+$aluno->insert();  // envia para a BD
+
+echo $aluno;
+*/
+
+
+/*  ---- Setimo exemplo DAO - CLASSE Usuario - UPDATE usuario  ----
+*/
+
+$usuario = new Usuario();
+
+$usuario->loadById(9);
+
+$usuario->update("professor", "!@#$%*&");
 
 echo $usuario;
 

@@ -59,10 +59,15 @@ public function loadById($id){  // metodo que recebe o $id.
 
 		$row = $results[0];  // Como é um array de arrays, coloca-se na posicao 0.
 
+		/* Instrucoes substituidas pela linha abaixo, usa o metodo setData dado que o codigo é usado varias vezes.
+
 		$this->setIdusuario($row['idusuario']);  // envia os dados para os seters. (preenchimento dos atributos, ou seja, carregar os dados da BD no objeto).
 		$this->setDeslogin($row['deslogin']);
 		$this->setDessenha($row['dessenha']);
 		$this->setDtcadastro(new DateTime($row['dtcadastro']));  // instanciacao da classe DateTime para colocar no padrao dataHora.
+		*/
+
+		$this->setData($results[0]);
 
 	}
 
@@ -101,10 +106,15 @@ public function login($login, $password){
 
 		$row = $results[0];  // Como é um array de arrays, coloca-se na posicao 0.
 
+		/* Instrucoes substituidas pela linha abaixo, usa o metodo setData dado que o codigo é usado varias vezes.
+
 		$this->setIdusuario($row['idusuario']);  // envia os dados para os seters. (preenchimento dos atributos, ou seja, carregar os dados da BD no objeto).
-		$this->setDeslogin($row['deslogin']);
-		$this->setDessenha($row['dessenha']);
-		$this->setDtcadastro(new DateTime($row['dtcadastro']));  // instanciacao da classe DateTime para colocar no padrao dataHora.
+			$this->setDeslogin($row['deslogin']);
+			$this->setDessenha($row['dessenha']);
+			$this->setDtcadastro(new DateTime($row['dtcadastro']));  // instanciacao da classe DateTime para colocar no padrao dataHora.
+		*/
+
+		$this->setData($results[0]);
 
 	} else {
 
@@ -113,10 +123,57 @@ public function login($login, $password){
 
 	}
 
+}
 
+
+public function setData($data){
+
+	$this->setIdusuario($data['idusuario']);  // envia os dados para os seters. (preenchimento dos atributos, ou seja, carregar os dados da BD no objeto).
+	$this->setDeslogin($data['deslogin']);
+	$this->setDessenha($data['dessenha']);
+	$this->setDtcadastro(new DateTime($data['dtcadastro']));  // instanciacao da classe DateTime para colocar no padrao dataHora.
+
+}
+
+
+
+public function insert(){
+
+	$sql = new Sql();
+	$results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(  // Procedure dentro do select. Só passo dois parametros pois o ID é gerado automaticamente e a data vai buscar a do sistema. CALL no mySql, EXECUTE no SqlServer.
+		':LOGIN'=>$this->getDeslogin(),
+		':PASSWORD'=>$this->getDessenha()
+	));  // Procedure com o select porque quando a procedure for executada no fim ela chama uma funcao que retorna o ID gerado na tabela. Esta procedure tem que ser criada na BD nas Stored Procedures com o mesmo nome.
+
+	if (count($results) > 0) {
+
+		$this->setData($results[0]);
+	}
 
 
 }
+
+
+public function update($login, $password){
+
+	$this->setDeslogin($login);
+	$this->setDessenha($password);
+
+	$sql = new Sql();
+
+	$sql->execQuery("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD WHERE idusuario = :ID", array(
+		':LOGIN'=>$this->getDeslogin(), 
+		':PASSWORD'=>$this->getDessenha(),
+		':ID'=>$this->getIdusuario()
+	));
+
+}
+
+public function __construct($login = "", $password = ""){  // como é um metodo construtor, sempre que chamo a funcao usuario tenho que passar o login e a senha. Por forma a nao ser obrigatorio coloco = "" , e se nao passar os parametros é assumido vazio e nao da erro. 
+	$this->setDeslogin($login);
+	$this->setDessenha($password);
+}
+
 
 
 public function __toString()  // __toString -> metodo mágico que envia (faz um echo) dos dados para um json e mostra no ecran.
